@@ -7,7 +7,7 @@ from base.management import BaseCommand
 
 
 def init_ldap():
-    server = ldap3.initialize('ldap://ads.mwn.de')
+    server = ldap3.Server('ldap://ads.mwn.de')
     connection = ldap3.Connection(
         server,
         'CN=%s,OU=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de' % settings.LDAP_USER,
