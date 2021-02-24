@@ -1,5 +1,5 @@
 from allauth.socialaccount.app_settings import QUERY_EMAIL
-from allauth.socialaccount.providers.base import AuthAction, ProviderAccount
+from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
@@ -33,5 +33,6 @@ class TUMProvider(OAuth2Provider):
         return dict(email=data.get('email'),
                     last_name=data.get('family_name'),
                     first_name=data.get('given_name'))
+
 
 provider_classes = [TUMProvider]
