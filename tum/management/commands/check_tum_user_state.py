@@ -1,6 +1,6 @@
 import ldap3
 
-from django.contrib.auth.models import User
+from allauth.socialaccount.models import SocialAccount
 from django.conf import settings
 
 from base.management import BaseCommand
@@ -16,10 +16,10 @@ def init_ldap():
     return connection
 
 
-def check_user_in_ldap(connection, email):
+def check_user_in_ldap(connection, uid):
     return connection.search(
         'ou=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de',
-        '(proxyAddresses=smtp:%s)' % email
+        '(uid=%s)' % uid
     )
 
 
@@ -50,18 +50,18 @@ class Command(BaseCommand):
         delete_count = 0
         deactivate_count = 0
 
-        for user in User.objects.all():
-            if check_user_in_ldap(connection, user.email):
-                if not user.is_active:
-                    user.is_active = True
-                    user.save()
+        for sa in SocialAccount.objects.all():
+            if check_user_in_ldap(connection, sa.uid):
+                if not sa.user.is_active:
+                    sa.user.is_active = True
+                    sa.user.save()
                     activate_count += 1
             elif options['delete']:
-                user.delete()
+                sa.user.delete()
                 delete_count += 1
-            elif user.is_active:
-                user.is_active = False
-                user.save()
+            elif sa.user.is_active:
+                sa.user.is_active = False
+                sa.user.save()
                 deactivate_count += 1
         connection.unbind()
         self.stdout.write(
@@ -69,6 +69,6 @@ class Command(BaseCommand):
                 activate_count,
                 deactivate_count,
                 delete_count,
-                len(User.objects.all())
+                len(SocialAccount.objects.all())
             )
         )
