@@ -11,19 +11,19 @@ from .provider import TUMProvider
 
 class TUMOAuth2Adapter(OAuth2Adapter):
     provider_id = TUMProvider.id
-    access_token_url = 'https://campus.tum.de/tumonline/wbOAuth2.token'
-    authorize_url = 'https://campus.tum.de/tumonline/wbOAuth2.authorize'
-    profile_url = 'https://campus.tum.de/tumonline/!co_loc_wsoa2user.userinfo'
+    access_token_url = "https://campus.tum.de/tumonline/wbOAuth2.token"
+    authorize_url = "https://campus.tum.de/tumonline/wbOAuth2.authorize"
+    profile_url = "https://campus.tum.de/tumonline/!co_loc_wsoa2user.userinfo"
 
     def complete_login(self, request, app, token, **kwargs):
         extra_data = self.get_user_info(token)
-        login = self.get_provider() \
-            .sociallogin_from_response(request,
-                                       extra_data)
+        login = self.get_provider().sociallogin_from_response(
+            request, extra_data
+        )
         return login
 
     def get_user_info(self, token):
-        auth_header = "Bearer " + token.token
+        auth_header = f"Bearer {token.token}"
         headers = {
             "Accept": "application/json",
             "Authorization": auth_header,

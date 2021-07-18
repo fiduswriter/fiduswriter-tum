@@ -7,41 +7,40 @@ from base.management import BaseCommand
 
 
 def init_ldap():
-    server = ldap3.Server('ldap://ads.mwn.de')
+    server = ldap3.Server("ldap://ads.mwn.de")
     connection = ldap3.Connection(
         server,
-        'CN=%s,OU=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de' % settings.LDAP_USER,
-        settings.LDAP_PASSWORD
+        "CN=%s,OU=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de" % settings.LDAP_USER,
+        settings.LDAP_PASSWORD,
     )
     return connection
 
 
 def check_user_in_ldap(connection, uid):
     return connection.search(
-        'ou=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de',
-        '(uid=%s)' % uid
+        "ou=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de", "(uid=%s)" % uid
     )
 
 
 class Command(BaseCommand):
-    help = 'Verify state of users in Active Directory. Deactivate old users.'
+    help = "Verify state of users in Active Directory. Deactivate old users."
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--delete',
-            action='store_true',
-            dest='delete',
+            "--delete",
+            action="store_true",
+            dest="delete",
             default=False,
-            help='Whether to delete instead of deactivate old users.'
+            help="Whether to delete instead of deactivate old users.",
         )
 
     def handle(self, *args, **options):
         if not (
-            hasattr(settings, 'LDAP_USER') and
-            hasattr(settings, 'LDAP_PASSWORD')
+            hasattr(settings, "LDAP_USER")
+            and hasattr(settings, "LDAP_PASSWORD")
         ):
             self.stdout.write(
-                'Please set LDAP_USER and LDAP_PASSWORD in configuration.py.'
+                "Please set LDAP_USER and LDAP_PASSWORD in configuration.py."
             )
             return
         connection = init_ldap()
@@ -56,7 +55,7 @@ class Command(BaseCommand):
                     sa.user.is_active = True
                     sa.user.save()
                     activate_count += 1
-            elif options['delete']:
+            elif options["delete"]:
                 sa.user.delete()
                 delete_count += 1
             elif sa.user.is_active:
@@ -65,10 +64,11 @@ class Command(BaseCommand):
                 deactivate_count += 1
         connection.unbind()
         self.stdout.write(
-            'Activated: %s, Deactivated: %s, Deleted: %s, Verified: %s' % (
+            "Activated: %s, Deactivated: %s, Deleted: %s, Verified: %s"
+            % (
                 activate_count,
                 deactivate_count,
                 delete_count,
-                len(SocialAccount.objects.all())
+                len(SocialAccount.objects.all()),
             )
         )

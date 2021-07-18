@@ -4,20 +4,20 @@ from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
 
 class Scope(object):
-    EMAIL = 'GET@loc.user.email'
-    UID = 'GET@loc.user.uid'
-    NAME = 'GET@loc.user.name'
+    EMAIL = "GET@loc.user.email"
+    UID = "GET@loc.user.uid"
+    NAME = "GET@loc.user.name"
 
 
 class TUMAccount(ProviderAccount):
     def to_str(self):
         dflt = super(TUMAccount, self).to_str()
-        return self.account.extra_data.get('name', dflt)
+        return self.account.extra_data.get("name", dflt)
 
 
 class TUMProvider(OAuth2Provider):
-    id = 'tum'
-    name = 'TUM'
+    id = "tum"
+    name = "TUM"
     account_class = TUMAccount
 
     def get_default_scope(self):
@@ -27,12 +27,14 @@ class TUMProvider(OAuth2Provider):
         return scope
 
     def extract_uid(self, data):
-        return str(data['sub'])
+        return str(data["sub"])
 
     def extract_common_fields(self, data):
-        return dict(email=data.get('email'),
-                    last_name=data.get('family_name'),
-                    first_name=data.get('given_name'))
+        return dict(
+            email=data.get("email"),
+            last_name=data.get("family_name"),
+            first_name=data.get("given_name"),
+        )
 
 
 provider_classes = [TUMProvider]
