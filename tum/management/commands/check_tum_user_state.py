@@ -7,11 +7,12 @@ from base.management import BaseCommand
 
 
 def init_ldap():
-    server = ldap3.Server("ldap://ads.mwn.de")
+    server = ldap3.Server("ldaps://ads.mwn.de")
     connection = ldap3.Connection(
         server,
         f"CN={settings.LDAP_USER},OU=Users,ou=TU,ou=IAM,dc=ads,dc=mwn,dc=de",
         settings.LDAP_PASSWORD,
+        auto_bind=True,
     )
     return connection
 
@@ -55,7 +56,9 @@ class Command(BaseCommand):
             )
             return
         connection = init_ldap()
-        connection.bind()
+        if not connection.bound:
+            self.stdout.write("Connection to LDAP server could not be established.")
+            return
         activate_count = 0
         delete_count = 0
         deactivate_count = 0
