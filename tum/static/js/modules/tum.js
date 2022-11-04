@@ -6,7 +6,7 @@ export class TUMApp {
 
     init() {
         return ensureCSS([
-            'tum.css'
+            staticUrl('css/tum.css')
         ])
     }
 }
