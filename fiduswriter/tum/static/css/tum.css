@@ -1,10 +1,9 @@
 span.fab.fa-tum::before {
-    content: url(../svg/tum.svg);
+    content: url("../svg/tum.svg");
 }
 
-
 header.fw-header.prelogin div.fw-container {
-    background-image: url(../svg/tum_large.svg);
+    background-image: url("../svg/tum_large.svg");
     background-repeat: no-repeat;
     background-size: auto 40px;
     background-position: right 40px top 40px;

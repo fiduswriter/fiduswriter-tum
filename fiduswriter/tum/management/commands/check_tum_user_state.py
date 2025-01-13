@@ -50,14 +50,19 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        if not (hasattr(settings, "LDAP_USER") and hasattr(settings, "LDAP_PASSWORD")):
+        if not (
+            hasattr(settings, "LDAP_USER")
+            and hasattr(settings, "LDAP_PASSWORD")
+        ):
             self.stdout.write(
                 "Please set LDAP_USER and LDAP_PASSWORD in configuration.py."
             )
             return
         connection = init_ldap()
         if not connection.bound:
-            self.stdout.write("Connection to LDAP server could not be established.")
+            self.stdout.write(
+                "Connection to LDAP server could not be established."
+            )
             return
         activate_count = 0
         delete_count = 0

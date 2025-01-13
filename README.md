@@ -12,7 +12,7 @@ sudo bash
 apt install python3-pip
 cd /var/snap/fiduswriter/current
 git clone git@github.com:fiduswriter/fiduswriter-tum.git
-ln -s fiduswriter-tum/tum .
+ln -s fiduswriter-tum/fiduswriter/tum .
 pip3 install -r tum/requirements.txt --target .
 exit
 sudo fiduswriter.configure

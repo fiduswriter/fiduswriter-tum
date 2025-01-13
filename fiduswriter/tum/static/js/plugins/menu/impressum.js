@@ -8,11 +8,10 @@ export class ImpressumMenuItem {
     init() {
         this.menu.navItems.push({
             id: "impressum",
-            title: gettext('Impressum'),
+            title: gettext("Impressum"),
             url: "/pages/impressum/",
-            text: 'Impressum',
+            text: "Impressum",
             order: 10
         })
     }
-
 }
