@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fiduswriter-tum"
 description = "A Fidus Writer plugin to integrate with IT services of Technische Universität München (TUM)"
-version = "3.12.0-dev"
+version = "4.0.0"
 readme = "README.md"
 license = {text = "AGPL-3.0-or-later"}
 authors = [
