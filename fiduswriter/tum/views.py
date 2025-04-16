@@ -6,11 +6,9 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2LoginView,
 )
 
-from .provider import TUMProvider
-
 
 class TUMOAuth2Adapter(OAuth2Adapter):
-    provider_id = TUMProvider.id
+    provider_id = "tum"
     access_token_url = "https://campus.tum.de/tumonline/wbOAuth2.token"
     authorize_url = "https://campus.tum.de/tumonline/wbOAuth2.authorize"
     profile_url = "https://campus.tum.de/tumonline/!co_loc_wsoa2user.userinfo"

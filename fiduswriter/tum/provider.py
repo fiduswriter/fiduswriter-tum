@@ -1,6 +1,7 @@
 from allauth.socialaccount.app_settings import QUERY_EMAIL
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
+from .views import TUMOAuth2Adapter
 
 
 class Scope(object):
@@ -19,6 +20,7 @@ class TUMProvider(OAuth2Provider):
     id = "tum"
     name = "TUM"
     account_class = TUMAccount
+    oauth2_adapter_class = TUMOAuth2Adapter
 
     def get_default_scope(self):
         scope = [Scope.UID, Scope.NAME]
