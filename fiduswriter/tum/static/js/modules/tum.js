@@ -1,4 +1,4 @@
-import {ensureCSS} from "./common"
+import {ensureCSS} from "fwtoolkit"
 export class TUMApp {
     constructor(app) {
         this.app = app
