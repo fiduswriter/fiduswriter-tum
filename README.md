@@ -1,4 +1,4 @@
-# fiduswriter-tum
+# fiduswriter-tum-plugin
 
 Fidus Writer integration for the Fidus Writer instance of the Technical University of Munich (TUM).
 
@@ -11,8 +11,8 @@ To install run this on the command line:
 sudo bash
 apt install python3-pip
 cd /var/snap/fiduswriter/current
-git clone git@github.com:fiduswriter/fiduswriter-tum.git
-ln -s fiduswriter-tum/fiduswriter/tum .
+git clone git@github.com:fiduswriter/fiduswriter-tum-plugin.git
+ln -s fiduswriter-tum-plugin/fiduswriter/tum .
 pip3 install -r tum/requirements.txt --target .
 exit
 sudo fiduswriter.configure

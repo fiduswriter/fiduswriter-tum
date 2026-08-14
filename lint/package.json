@@ -1,7 +1,7 @@
 {
     "name": "fiduswriter-tum-lint",
     "version": "1.0.0",
-    "description": "Linting tools for fiduswriter-tum",
+    "description": "Linting tools for fiduswriter-tum-plugin",
     "dependencies": {
         "acorn": "^8.10.0"
     }
