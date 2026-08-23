@@ -24,7 +24,7 @@ jobs:
         run: |
           pip install pip --upgrade
           if grep version pyproject.toml | grep -q "dev";
-            then pip install https://github.com/fiduswriter/fiduswriter/archive/develop.zip;
-            else pip install https://github.com/fiduswriter/fiduswriter/archive/main.zip;
+            then pip install https://github.com/fiduswriter/fiduswriter-server-backend/archive/develop.zip;
+            else pip install https://github.com/fiduswriter/fiduswriter-server-backend/archive/main.zip;
           fi
       - uses: pre-commit/action@v3.0.1
